@@ -6,12 +6,14 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import java.io.Serializable;
+
 /**
  * Created by jilibing on 2016/6/20/0020.
  */
 @Table(database = AppDatabase.class)
 @ModelContainer
-public class Card extends BaseModel {
+public class Card extends BaseModel implements Serializable {
 
     @Column
     @PrimaryKey(autoincrement = true)

@@ -1,6 +1,6 @@
 package com.zihan.card.main;
 
-import com.zihan.card.model.CardInfo;
+import com.zihan.card.database.Card;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class MainContract {
 
     public interface View {
 
-        void getCardListSuccess(List<CardInfo> cardInfoList);
+        void getCardListSuccess(List<Card> cardList);
     }
 
     public interface Presenter {

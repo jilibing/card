@@ -12,35 +12,195 @@
         android:layout_margin="8dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
-        cardview:cardBackgroundColor="@color/blue_400"
         cardview:cardCornerRadius="5dp"
         cardview:cardElevation="5dp"
         cardview:cardMaxElevation="10dp"
+        cardview:cardBackgroundColor="@color/blue_500"
+
         >
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/vg_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             >
+
             <ImageView
                 android:id="@+id/iv_img"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/card_bg"
+                android:src="@drawable/test"
                 android:background="@android:color/white"
+                android:visibility="visible"
                 />
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:id="@+id/vg_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="test"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                />
-        </LinearLayout>
+                android:background="@color/blue_500"
+                android:layout_below="@id/iv_img"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="test"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/vg_test1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+                    <TextView
+                        android:id="@+id/tv_test1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="test"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_test1_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="test"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/vg_test2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@+id/tv_test2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="test"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_test2_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="test"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:visibility="gone"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/vg_test3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+                    <TextView
+                        android:id="@+id/tv_test3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="test"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_test3_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="test"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/vg_test4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+                    <TextView
+                        android:id="@+id/tv_test4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="test"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_test4_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="test"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/vg_test5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+                    <TextView
+                        android:id="@+id/tv_test5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="test"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_test5_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="test"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
 
 
     </android.support.v7.widget.CardView>

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.zihan.card.utils.EventBusUtils;
+
 import butterknife.ButterKnife;
 
 /**
@@ -23,6 +25,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        EventBusUtils.getInstance().register(this);
+
         init();
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBusUtils.getInstance().unregister(this);
+        super.onDestroy();
     }
 }
