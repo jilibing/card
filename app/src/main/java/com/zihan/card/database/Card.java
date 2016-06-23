@@ -25,11 +25,8 @@ public class Card extends BaseModel implements Serializable {
     @Column
     public String pic;
 
-    @Column
-    public String testCol;
-
     @Override
     public String toString() {
-        return "id:"+id+" title:"+title+" pic:"+pic+" testCol:"+testCol;
+        return "id:"+id+" title:"+title+" pic:"+pic;
     }
 }

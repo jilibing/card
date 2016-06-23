@@ -1,13 +1,17 @@
 package com.zihan.card.detail;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,6 +25,7 @@ import com.zihan.card.utils.EventBusUtils;
 import com.zihan.card.utils.FileUtils;
 import com.zihan.card.utils.ImageLoaderUtils;
 import com.zihan.card.utils.ToastUtils;
+import com.zihan.card.utils.UriUtils;
 
 import java.io.File;
 
@@ -43,26 +48,48 @@ public class CardDetailActivity extends BaseActivity {
 
     @OnClick(R.id.iv_img)
     void addImg() {
-        File file = FileUtils.createImageFile();
-        if(file == null) {
-            ToastUtils.show("创建文件失败！");
-            return;
-        }
 
-        if(false) {
+        new AlertDialog.Builder(this)
+                .setTitle("选择照片")
+                .setPositiveButton("相机", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        File file = FileUtils.createImageFile();
+                        if (file == null) {
+                            ToastUtils.show("创建文件失败！");
+                            return;
+                        }
+                        outputFileUri = Uri.fromFile(file);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(intent, BIG_CAPTURE);
+                        }
+                    }
+                })
+                .setNegativeButton("相册", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(Intent.ACTION_PICK);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, REQUEST_IMAGE);
+                    }
+                })
+                .show();
+        /*
+        if (true) {
             outputFileUri = Uri.fromFile(file);
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivityForResult(intent, BIG_CAPTURE);
             }
-        }else {
+        } else {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             startActivityForResult(intent, REQUEST_IMAGE);
         }
-
-
+*/
 
     }
 
@@ -83,18 +110,23 @@ public class CardDetailActivity extends BaseActivity {
     protected void init() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        toolbar.setTitle("卡包");
+        toolbar.setTitle("记录");
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         mCardInfo = (Card) getIntent().getSerializableExtra("card_info");
         if (mCardInfo != null) {
             mEtTitle.setText(mCardInfo.title);
             mEtTitle.setSelection(mCardInfo.title.length());
 
-            if(!TextUtils.isEmpty(mCardInfo.pic)) {
+            if (!TextUtils.isEmpty(mCardInfo.pic)) {
                 ImageLoaderUtils.display(mIvImg, mCardInfo.pic);
             }
         }
@@ -118,12 +150,12 @@ public class CardDetailActivity extends BaseActivity {
                     return true;
                 }
 
-                if(mCardInfo == null) {
+                if (mCardInfo == null) {
                     mCardInfo = new Card();
                 }
 
                 mCardInfo.title = title;
-                if(!TextUtils.isEmpty(mPicPath)) {
+                if (!TextUtils.isEmpty(mPicPath)) {
                     mCardInfo.pic = mPicPath;
                 }
                 mCardInfo.save();
@@ -139,17 +171,24 @@ public class CardDetailActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Logger.i("onActivityResult requestCode:"+resultCode+" requestCode:"+requestCode);
-        if(resultCode == RESULT_OK && requestCode== BIG_CAPTURE){
-            Logger.i("outputFileUri:" + outputFileUri);
-            mPicPath = outputFileUri.getPath();
+        Logger.i("onActivityResult requestCode:" + resultCode + " requestCode:" + requestCode);
+        if (resultCode == RESULT_OK && requestCode == BIG_CAPTURE) {
+            mPicPath = UriUtils.getRealFilePath(this, outputFileUri);
+            Logger.i("outputFilePath:" + mPicPath);
+
             ImageLoaderUtils.display(mIvImg, mPicPath);
+
+            Bitmap bitmap = FileUtils.getDiskBitmap(mPicPath);
+            //mIvImg.setImageBitmap(bitmap);
         }
 
         if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE) {
-            Logger.i("GalleryUri:" + data.getData());
-            mPicPath = data.getData().getPath();
+            mPicPath = UriUtils.getRealFilePath(this, data.getData());
+            Logger.i("GalleryUri:" + mPicPath);
+
             ImageLoaderUtils.display(mIvImg, mPicPath);
+
+
         }
     }
 }

@@ -38,7 +38,6 @@ public class ImageLoaderUtils {
         Glide
                 .with(imageView.getContext())
                 .load(url)
-                .centerCrop()
                 .error(getErrorHolder())
                 .placeholder(getPlaceHolder())
                 .into(imageView);

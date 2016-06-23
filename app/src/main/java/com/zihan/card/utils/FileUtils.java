@@ -1,5 +1,7 @@
 package com.zihan.card.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 import com.orhanobut.logger.Logger;
@@ -41,7 +43,24 @@ public class FileUtils {
         }
     }
 
+    public static Bitmap getDiskBitmap(String pathString)
+    {
+        Bitmap bitmap = null;
+        try
+        {
+            File file = new File(pathString);
+            if(file.exists())
+            {
+                bitmap = BitmapFactory.decodeFile(pathString);
+            }
+        } catch (Exception e)
+        {
+            // TODO: handle exception
+        }
 
+
+        return bitmap;
+    }
 
 
 }
